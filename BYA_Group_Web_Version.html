@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYA GROUP | Premium Living Curated</title>
+
+    <!-- Premium Editorial Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FAF9F6',     /* Warm White / Pearl */
+                        secondary: '#F3F2EE',   /* Stone / Soft Beige */
+                        dark: '#161616',        /* Luxury Charcoal */
+                        accent: '#D4AF37',      /* Champagne Gold */
+                        muted: '#888888',
+                        borderLight: 'rgba(22, 22, 22, 0.1)',
+                        borderDark: 'rgba(250, 249, 246, 0.1)'
+                    },
+                    fontFamily: {
+                        editorial: ['Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Base & Smooth Scroll Reset */
+        body { background-color: var(--primary); color: var(--dark); overflow-x: hidden; cursor: none; }
+        
+        /* Custom Luxury Cursor */
+        .cursor-dot, .cursor-ring {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+        }
+        .cursor-dot { width: 6px; height: 6px; background-color: #D4AF37; transition: width 0.2s, height 0.2s; }
+        .cursor-ring { width: 40px; height: 40px; border: 1px solid rgba(212, 175, 55, 0.5); transition: width 0.4s, height 0.4s, background-color 0.4s, border-color 0.4s; }
+        .hover-active .cursor-dot { width: 0; height: 0; }
+        .hover-active .cursor-ring { width: 80px; height: 80px; background-color: rgba(250, 249, 246, 0.1); backdrop-filter: blur(4px); border-color: transparent; }
+
+        /* Typography Utilities */
+        .split-line { overflow: hidden; padding-bottom: 0.1em; }
+        .text-gradient { background: linear-gradient(to right, #ffffff, #aaaaaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Glass & Shadows */
+        .glass-dark { background: rgba(22, 22, 22, 0.4); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.05); }
+        .glass-light { background: rgba(250, 249, 246, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(22,22,22,0.05); }
+
+        /* Room Interactions (Simulating Smart Environments) */
+        .room-bg { transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1), filter 1s ease; }
+        .room-section:hover .room-bg { transform: scale(1.03); }
+        
+        /* Interactive Hotspot Effects */
+        .effect-layer { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.8s ease, backdrop-filter 0.8s ease; z-index: 5; }
+        .effect-lighting.active { opacity: 1; background: radial-gradient(circle at center, rgba(255, 230, 180, 0.3) 0%, transparent 70%); mix-blend-mode: overlay; }
+        .effect-tv.active { opacity: 1; background: radial-gradient(circle at 70% 40%, rgba(150, 200, 255, 0.4) 0%, transparent 50%); mix-blend-mode: screen; }
+        .effect-ac.active { opacity: 1; background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%); }
+        .effect-oven.active { opacity: 1; background: radial-gradient(circle at 30% 60%, rgba(255, 150, 50, 0.3) 0%, transparent 40%); mix-blend-mode: color-dodge; }
+        .effect-steam.active { opacity: 1; backdrop-filter: blur(8px); background: rgba(250, 249, 246, 0.1); }
+        
+        /* Product Item Hover */
+        .product-item { transition: all 0.4s ease; position: relative; padding-left: 20px; }
+        .product-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 0; height: 1px; background-color: #D4AF37; transition: width 0.4s ease; }
+        .product-item:hover { color: #D4AF37; transform: translateX(10px); }
+        .product-item:hover::before { width: 12px; }
+
+        /* Brand Ecosystem Overlay */
+        .brand-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.05); transition: opacity 1s ease, transform 2s ease; z-index: 1; }
+        .brand-bg.active { opacity: 0.4; transform: scale(1); }
+        .brand-logo-interactive { filter: grayscale(100%) brightness(200%); opacity: 0.5; transition: all 0.5s ease; }
+        .brand-logo-interactive:hover, .brand-logo-interactive.active { filter: grayscale(0%) brightness(100%); opacity: 1; transform: scale(1.1); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #161616; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body class="selection:bg-accent selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-ring hidden md:block"></div>
+
+    <!-- Minimal Navigation -->
+    <nav class="fixed w-full z-50 mix-blend-difference py-6 px-8 md:px-16 flex justify-between items-center text-white pointer-events-none">
+        <div class="font-display font-bold text-xl tracking-[0.2em] uppercase pointer-events-auto hover-trigger">BYA<span class="text-accent">.</span></div>
+        <div class="hidden md:flex font-sans text-[10px] tracking-[0.3em] uppercase opacity-70">Premium Living Curated</div>
+        <a href="#contact" class="pointer-events-auto font-sans text-[10px] tracking-[0.2em] uppercase border-b border-white/30 pb-1 hover:border-accent hover:text-accent transition-colors hover-trigger">Consultation</a>
+    </nav>
+
+    <!-- ================= SECTION 1: LUXURY ENTRANCE ================= -->
+    <section id="hero" class="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden bg-dark">
+        <!-- Autoplay Background Simulation -->
+        <div class="absolute inset-0 z-0">
+            <img src="cover-image.jpg" alt="Luxury Villa Exterior" class="w-full h-full object-cover opacity-60 scale-110 animate-[slowZoom_20s_ease-out_forwards]">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark/40 via-transparent to-dark/90"></div>
+        </div>
+
+        <div class="relative z-10 text-center flex flex-col items-center mt-20">
+            <span class="text-accent font-sans text-[10px] tracking-[0.4em] uppercase mb-8 reveal-fade">The Architectural Standard</span>
+            <h1 class="font-display text-6xl md:text-8xl lg:text-9xl text-white font-bold tracking-tighter uppercase mb-6 drop-shadow-2xl">
+                <div class="split-line"><span class="reveal-heading inline-block">BYA GROUP</span></div>
+            </h1>
+            <p class="font-editorial italic text-3xl md:text-4xl text-white/90 reveal-fade">Premium Living Curated.</p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 z-10 flex flex-col items-center gap-4 reveal-fade">
+            <span class="font-sans text-[9px] tracking-[0.3em] text-white/50 uppercase origin-center rotate-90 mb-6">Explore</span>
+            <div class="w-[1px] h-16 bg-white/20 relative overflow-hidden">
+                <div class="w-full h-1/2 bg-accent absolute top-0 animate-[scroll_2s_ease-in-out_infinite]"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 2: BYA PHILOSOPHY ================= -->
+    <section id="philosophy" class="relative py-32 md:py-48 px-8 md:px-16 bg-primary text-dark overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            
+            <div class="relative h-[70vh] w-full overflow-hidden gs-reveal">
+                <img src="about-image.jpg" alt="Architectural Atmospheres" class="w-full h-full object-cover" data-speed="0.9">
+            </div>
+
+            <div class="flex flex-col justify-center gs-reveal px-4">
+                <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-6 block">About BYA Group</span>
+                <h2 class="font-display text-4xl md:text-6xl font-bold uppercase leading-[1.1] mb-12">Architectural<br>Atmospheres.</h2>
+                
+                <p class="font-editorial italic text-2xl md:text-3xl text-muted leading-relaxed mb-10 border-l-2 border-accent pl-6">
+                    "We believe true luxury is invisible. It is felt in the perfect temperature of a room, the seamless glow of architectural lighting, and the silent efficiency of a kitchen."
+                </p>
+                
+                <p class="font-sans text-sm font-light leading-loose text-dark/80 max-w-lg">
+                    BYA Group stands at the intersection of luxury architecture, global design, and spatial engineering. We do not merely supply products; we curate complete living environments for India’s most visionary architects, interior designers, developers, and premium homeowners.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 3: LIVING ROOM ================= -->
+    <section class="room-section relative w-full h-screen overflow-hidden bg-dark flex items-end">
+        <img src="living-room.jpg" alt="Living Room" class="absolute inset-0 w-full h-full object-cover room-bg opacity-70">
+        
+        <!-- Interactive Layers -->
+        <div class="effect-layer effect-lighting" id="effect-living-lighting"></div>
+        <div class="effect-layer effect-tv" id="effect-living-tv"></div>
+        <div class="effect-layer effect-ac" id="effect-living-ac"></div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+
+        <div class="relative z-20 w-full px-8 md:px-16 pb-16 flex flex-col md:flex-row justify-between items-end gap-12 max-w-[100rem] mx-auto gs-reveal">
+            <div>
+                <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">01 / The Lounge</span>
+                <h2 class="font-display text-5xl md:text-7xl text-white font-bold uppercase mb-2">Living Room</h2>
+                <p class="font-editorial italic text-2xl text-white/70">Where light meets leisure.</p>
+            </div>
+
+            <div class="glass-dark p-8 md:p-10 rounded-sm w-full md:w-[400px]">
+                <ul class="flex flex-col gap-6 font-sans text-xs tracking-widest text-white/80 uppercase font-light">
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-living-lighting">Philips Smart Ambient Lighting</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-living-ac">Philips Silent Ceiling Fans</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-living-tv">LG Signature OLED Display</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-living-ac">LG Invisible Climate Control</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 4: DESIGNER KITCHEN ================= -->
+    <section class="room-section relative w-full h-screen overflow-hidden bg-dark flex items-end">
+        <img src="kitchen.jpg" alt="Designer Kitchen" class="absolute inset-0 w-full h-full object-cover room-bg opacity-70">
+        
+        <!-- Interactive Layers -->
+        <div class="effect-layer effect-oven" id="effect-kitchen-oven"></div>
+        <div class="effect-layer effect-lighting" id="effect-kitchen-fridge"></div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+
+        <div class="relative z-20 w-full px-8 md:px-16 pb-16 flex flex-col md:flex-row justify-between items-end gap-12 max-w-[100rem] mx-auto gs-reveal">
+            <div class="md:order-2 text-left md:text-right">
+                <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">02 / Culinary Space</span>
+                <h2 class="font-display text-5xl md:text-7xl text-white font-bold uppercase mb-2">Designer Kitchen</h2>
+                <p class="font-editorial italic text-2xl text-white/70">Silent efficiency. Bold aesthetics.</p>
+            </div>
+
+            <div class="md:order-1 glass-dark p-8 md:p-10 rounded-sm w-full md:w-[400px]">
+                <ul class="flex flex-col gap-6 font-sans text-xs tracking-widest text-white/80 uppercase font-light">
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-kitchen-oven">Elica Built-in Oven & Hob</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-kitchen-oven">Elica Downdraft Extractor</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-kitchen-fridge">LG InstaView Refrigerator</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-kitchen-fridge">Whirlpool Built-in Dishwasher</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 5: MASTER BATHROOM ================= -->
+    <section class="room-section relative w-full h-screen overflow-hidden bg-dark flex items-end">
+        <img src="bathroom.jpg" alt="Master Bathroom" class="absolute inset-0 w-full h-full object-cover room-bg opacity-70">
+        
+        <!-- Interactive Layers -->
+        <div class="effect-layer effect-steam" id="effect-bath-steam"></div>
+        <div class="effect-layer effect-lighting" id="effect-bath-light"></div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+
+        <div class="relative z-20 w-full px-8 md:px-16 pb-16 flex flex-col md:flex-row justify-between items-end gap-12 max-w-[100rem] mx-auto gs-reveal">
+            <div>
+                <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">03 / The Sanctuary</span>
+                <h2 class="font-display text-5xl md:text-7xl text-white font-bold uppercase mb-4">Master Ensuite</h2>
+                <p class="font-editorial italic text-xl md:text-2xl text-white/80 max-w-lg mb-4">Personal wellness redefined. Transforming daily hygiene into a spa-level ritual.</p>
+                <p class="font-sans text-xs text-white/50 font-light max-w-md leading-relaxed hidden md:block">Combining fluid mechanics, Italian ergonomics, and touchless intelligence to craft master suites of absolute distinction.</p>
+            </div>
+
+            <div class="glass-dark p-8 md:p-10 rounded-sm w-full md:w-[400px]">
+                <ul class="flex flex-col gap-6 font-sans text-xs tracking-widest text-white/80 uppercase font-light">
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bath-light">Kohler Intelligent Smart WC</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bath-steam">Kohler Hydrotherapy Rain Shower</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bath-steam">Kohler Freestanding Soaking Tub</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bath-light">Kohler Architectural Faucets</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 6: MASTER BEDROOM ================= -->
+    <section class="room-section relative w-full h-screen overflow-hidden bg-dark flex items-end">
+        <img src="bedroom.jpg" alt="Master Bedroom" class="absolute inset-0 w-full h-full object-cover room-bg opacity-70">
+        
+        <div class="effect-layer effect-lighting" id="effect-bed-light"></div>
+        <div class="effect-layer effect-tv" id="effect-bed-tv"></div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+
+        <div class="relative z-20 w-full px-8 md:px-16 pb-16 flex flex-col md:flex-row justify-between items-end gap-12 max-w-[100rem] mx-auto gs-reveal">
+            <div class="md:order-2 text-left md:text-right">
+                <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">04 / The Retreat</span>
+                <h2 class="font-display text-5xl md:text-7xl text-white font-bold uppercase mb-2">Master Bedroom</h2>
+                <p class="font-editorial italic text-2xl text-white/70">Circadian rest.</p>
+            </div>
+
+            <div class="md:order-1 glass-dark p-8 md:p-10 rounded-sm w-full md:w-[400px]">
+                <ul class="flex flex-col gap-6 font-sans text-xs tracking-widest text-white/80 uppercase font-light">
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bed-light">Philips Circadian Lighting</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bed-light">Philips Decorative Pendants</li>
+                    <li class="product-item hover-trigger cursor-none">LG Whisper-Quiet AC</li>
+                    <li class="product-item hover-trigger cursor-none" data-effect="effect-bed-tv">LG Gallery Frame TV</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 7: DINING AREA & UTILITY ================= -->
+    <!-- Combining these conceptually via horizontal scroll or stacking gracefully -->
+    <section class="w-full bg-primary py-32 overflow-hidden text-dark">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            
+            <!-- Dining Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-48 gs-reveal">
+                <div class="order-2 lg:order-1 flex flex-col justify-center">
+                    <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">05 / Gathering</span>
+                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase leading-tight mb-8">Dining Area</h2>
+                    <p class="font-editorial italic text-2xl text-muted mb-6">Setting the atmosphere.</p>
+                    <p class="font-sans text-sm font-light leading-loose max-w-md mb-10">The transition between culinary creation and entertainment. Illuminated by statement metallic fixtures that act as living art above the dining landscape.</p>
+                    
+                    <div class="border-t border-borderDark pt-8">
+                        <ul class="flex flex-col gap-4 font-sans text-xs tracking-widest uppercase font-semibold">
+                            <li class="text-dark/80">Philips Sculptural Pendants</li>
+                            <li class="text-dark/80">LG Wall-Mounted Display</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 h-[60vh] w-full overflow-hidden">
+                    <img src="dining.jpg" alt="Dining" class="w-full h-full object-cover gs-parallax" data-speed="0.8">
+                </div>
+            </div>
+
+            <!-- Utility Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center gs-reveal">
+                <div class="h-[60vh] w-full overflow-hidden">
+                    <img src="utility.jpg" alt="Utility" class="w-full h-full object-cover gs-parallax" data-speed="0.8">
+                </div>
+                <div class="flex flex-col justify-center">
+                    <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">06 / Function</span>
+                    <h2 class="font-display text-4xl md:text-6xl font-bold uppercase leading-tight mb-8">Utility Space</h2>
+                    <p class="font-editorial italic text-2xl text-muted mb-6">Invisible labor.</p>
+                    
+                    <div class="border-t border-borderDark pt-8 mt-10">
+                        <ul class="flex flex-col gap-4 font-sans text-xs tracking-widest uppercase font-semibold">
+                            <li class="text-dark/80">LG WashTower Laundry</li>
+                            <li class="text-dark/80">Whirlpool Heat Pump Dryer</li>
+                            <li class="text-dark/80">LG Tankless Water Purifier</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= SECTION 9: SMART LIVING ================= -->
+    <section class="py-32 bg-dark text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-8 md:px-16 flex flex-col items-center">
+            
+            <div class="text-center mb-24 gs-reveal">
+                <span class="text-accent font-sans text-[10px] tracking-[0.4em] uppercase mb-4 block">Integration</span>
+                <h2 class="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight mb-8">The Connected Home</h2>
+                <p class="font-sans text-sm md:text-base font-light text-white/60 max-w-2xl mx-auto leading-relaxed">
+                    A true luxury home does not feel like a collection of separate appliances. It operates as a single, unified organism. From the climate responding to the lighting, to the kitchen anticipating the evening meal.
+                </p>
+            </div>
+
+            <!-- Connected Nodes Imagery -->
+            <div class="relative w-full h-[60vh] flex items-center justify-center gs-reveal">
+                <!-- SVG Connections -->
+                <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="20%" y1="50%" x2="50%" y2="50%" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" class="animate-[dash_20s_linear_infinite]"/>
+                    <line x1="80%" y1="50%" x2="50%" y2="50%" stroke="#D4AF37" stroke-width="1" stroke-dasharray="4 4" class="animate-[dash_20s_linear_infinite] reverse"/>
+                </svg>
+
+                <div class="grid grid-cols-3 gap-8 w-full z-10">
+                    <div class="h-[40vh] transform translate-y-10 hover:-translate-y-2 transition-transform duration-700">
+                        <img src="smart-home-1.jpg" alt="Smart Device" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div class="h-[50vh] transform -translate-y-10 hover:translate-y-2 transition-transform duration-700 shadow-2xl z-20">
+                        <img src="smart-home-2.jpg" alt="Smart Interface" class="w-full h-full object-cover">
+                    </div>
+                    <div class="h-[40vh] transform translate-y-10 hover:-translate-y-2 transition-transform duration-700">
+                        <img src="smart-home-3.jpg" alt="Smart Interaction" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 10: WHY BYA ================= -->
+    <section class="py-32 bg-secondary text-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-8 md:px-16 flex flex-col lg:flex-row gap-20">
+            
+            <div class="lg:w-1/2 lg:sticky lg:top-32 h-fit gs-reveal">
+                <span class="text-accent font-sans text-[10px] tracking-[0.3em] uppercase mb-4 block">The Procurement Advantage</span>
+                <h2 class="font-display text-5xl md:text-6xl font-bold uppercase leading-tight mb-8">One Vision.<br>One Destination.</h2>
+                <div class="w-20 h-[1px] bg-accent mb-8"></div>
+                <p class="font-editorial italic text-2xl text-muted leading-relaxed">
+                    Acquire world-class lighting, sanitary, appliance, and kitchen systems under one unified procurement agreement.
+                </p>
+                <div class="mt-12 h-64 overflow-hidden rounded-sm hidden lg:block">
+                    <img src="why-bya.jpg" alt="Consultation" class="w-full h-full object-cover filter grayscale">
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 flex flex-col gap-12">
+                <!-- Feature Story Cards -->
+                <div class="border-b border-borderDark pb-12 gs-reveal hover-trigger group">
+                    <span class="font-display text-4xl text-accent opacity-30 mb-4 block group-hover:opacity-100 transition-opacity">01</span>
+                    <h3 class="font-display text-2xl font-bold uppercase mb-4">Five-Brand Ecosystem</h3>
+                    <p class="font-sans text-sm font-light text-muted leading-relaxed">Seamlessly integrate the world's most prestigious manufacturers into a singular, cohesive architectural plan.</p>
+                </div>
+                
+                <div class="border-b border-borderDark pb-12 gs-reveal hover-trigger group">
+                    <span class="font-display text-4xl text-accent opacity-30 mb-4 block group-hover:opacity-100 transition-opacity">02</span>
+                    <h3 class="font-display text-2xl font-bold uppercase mb-4">Expert Architectural Consultation</h3>
+                    <p class="font-sans text-sm font-light text-muted leading-relaxed">Dedicated technical engineers assist with MEP drawings, plumbing layouts, and smart home wiring integrations tailored to your space.</p>
+                </div>
+
+                <div class="border-b border-borderDark pb-12 gs-reveal hover-trigger group">
+                    <span class="font-display text-4xl text-accent opacity-30 mb-4 block group-hover:opacity-100 transition-opacity">03</span>
+                    <h3 class="font-display text-2xl font-bold uppercase mb-4">White-Glove Installation</h3>
+                    <p class="font-sans text-sm font-light text-muted leading-relaxed">Direct factory-trained technicians execute precision assembly and calibration to preserve the integrity of your design.</p>
+                </div>
+
+                <div class="border-b border-borderDark pb-12 gs-reveal hover-trigger group">
+                    <span class="font-display text-4xl text-accent opacity-30 mb-4 block group-hover:opacity-100 transition-opacity">04</span>
+                    <h3 class="font-display text-2xl font-bold uppercase mb-4">Priority After-Sales Service</h3>
+                    <p class="font-sans text-sm font-light text-muted leading-relaxed">Lifelong dedicated concierge support ensures your curated living environment continues to function flawlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 11: BRAND ECOSYSTEM ================= -->
+    <section class="relative w-full h-screen bg-dark flex flex-col items-center justify-center overflow-hidden">
+        
+        <!-- Interactive Backgrounds based on Brand Hover -->
+        <div class="absolute inset-0 z-0">
+            <div id="bg-default" class="absolute inset-0 bg-dark brand-bg active"></div>
+            <img src="living-room.jpg" id="bg-philips" class="brand-bg" alt="Philips Lighting">
+            <img src="bathroom.jpg" id="bg-kohler" class="brand-bg" alt="Kohler Bath">
+            <img src="utility.jpg" id="bg-whirlpool" class="brand-bg" alt="Whirlpool Appliances">
+            <img src="bedroom.jpg" id="bg-lg" class="brand-bg" alt="LG Smart Home">
+            <img src="kitchen.jpg" id="bg-elica" class="brand-bg" alt="Elica Kitchens">
+            
+            <div class="absolute inset-0 bg-dark/80 z-10 transition-colors duration-700 backdrop-blur-sm" id="brand-overlay"></div>
+        </div>
+
+        <div class="relative z-20 w-full max-w-7xl mx-auto px-8 flex flex-col items-center text-center gs-reveal">
+            <span class="text-accent font-sans text-[10px] tracking-[0.4em] uppercase mb-4 block">The Portfolio</span>
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-white uppercase tracking-widest mb-6">Curated Global Brands</h2>
+            <p class="font-editorial italic text-2xl text-white/60 mb-20" id="brand-tagline">The world's most prestigious manufacturers.</p>
+
+            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-20 w-full max-w-5xl">
+                <!-- Logos -->
+                <div class="w-32 md:w-40 hover-trigger cursor-none" data-brand="philips" data-desc="Smart Lighting Systems">
+                    <img src="philips-logo.png" alt="Philips" class="w-full h-auto object-contain brand-logo-interactive">
+                </div>
+                <div class="w-32 md:w-40 hover-trigger cursor-none" data-brand="kohler" data-desc="Luxury Bathware">
+                    <img src="kohler-logo.png" alt="Kohler" class="w-full h-auto object-contain brand-logo-interactive">
+                </div>
+                <div class="w-32 md:w-40 hover-trigger cursor-none" data-brand="whirlpool" data-desc="Premium Home Appliances">
+                    <img src="whirlpool-logo.png" alt="Whirlpool" class="w-full h-auto object-contain brand-logo-interactive">
+                </div>
+                <div class="w-32 md:w-40 hover-trigger cursor-none" data-brand="lg" data-desc="Connected Smart Home">
+                    <img src="lg-logo.png" alt="LG" class="w-full h-auto object-contain brand-logo-interactive">
+                </div>
+                <div class="w-32 md:w-40 hover-trigger cursor-none" data-brand="elica" data-desc="Designer Kitchen Extraction">
+                    <img src="elica-logo.png" alt="Elica" class="w-full h-auto object-contain brand-logo-interactive">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 12: CONTACT ================= -->
+    <section id="contact" class="py-32 bg-primary text-dark relative border-t border-borderDark">
+        <div class="max-w-7xl mx-auto px-8 md:px-16 text-center mb-24 gs-reveal">
+            <span class="text-accent font-sans text-[10px] tracking-[0.4em] uppercase mb-4 block">Initiate Consultation</span>
+            <h2 class="font-display text-5xl md:text-7xl font-bold uppercase tracking-tight mb-6">Let's Build<br>Perfection.</h2>
+            <p class="font-editorial italic text-2xl text-muted">Visit our private architectural experience centers.</p>
+        </div>
+
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 px-8 text-center gs-reveal">
+            
+            <div class="flex flex-col items-center gap-4 hover-trigger group">
+                <i data-lucide="map-pin" class="w-6 h-6 text-accent mb-2"></i>
+                <h4 class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold">Headquarters & Showroom</h4>
+                <p class="font-editorial text-xl text-muted leading-relaxed group-hover:text-dark transition-colors">
+                    Plot No. 151/A/B, Sch.no. 94,<br>Pipliyahana Square,<br>Indore-452001 (M.P.) India
+                </p>
+            </div>
+
+            <div class="flex flex-col items-center gap-4 hover-trigger group">
+                <i data-lucide="mail" class="w-6 h-6 text-accent mb-2"></i>
+                <h4 class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold">Direct Inquiries</h4>
+                <a href="mailto:byagroup99@gmail.com" class="font-editorial text-2xl text-muted group-hover:text-accent transition-colors">
+                    byagroup99@gmail.com
+                </a>
+            </div>
+
+            <div class="flex flex-col items-center gap-4 hover-trigger group">
+                <i data-lucide="phone" class="w-6 h-6 text-accent mb-2"></i>
+                <h4 class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold">Concierge Line</h4>
+                <a href="tel:+919111676699" class="font-editorial text-3xl text-muted group-hover:text-accent transition-colors">
+                    +91 91116-76699
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-40 border-t border-borderDark pt-10 px-8 flex flex-col md:flex-row justify-between items-center gap-4 font-sans text-[9px] tracking-[0.3em] uppercase text-muted">
+            <span>© 2026 BYA GROUP</span>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-accent transition-colors hover-trigger">Instagram</a>
+                <a href="#" class="hover:text-accent transition-colors hover-trigger">LinkedIn</a>
+                <a href="#" class="hover:text-accent transition-colors hover-trigger">Pinterest</a>
+            </div>
+            <span>Premium Living Curated</span>
+        </footer>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // 1. Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Custom Magnetic Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            cursorRing.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 600, fill: "forwards", easing: "ease-out" });
+        });
+
+        document.querySelectorAll('.hover-trigger, .product-item').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+        });
+
+        // 3. Hero Text Reveal
+        const splitTitles = new SplitType('.reveal-heading', { types: 'chars' });
+        gsap.from(splitTitles.chars, {
+            y: 100, opacity: 0, duration: 1.5, stagger: 0.05, ease: "power4.out", delay: 0.5
+        });
+        gsap.from('.reveal-fade', { opacity: 0, y: 20, duration: 1.5, delay: 1.2, stagger: 0.3 });
+
+        // 4. Parallax Image Setup
+        gsap.utils.toArray('.gs-parallax').forEach(img => {
+            gsap.to(img, {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true }
+            });
+        });
+
+        // 5. Scroll Reveals
+        gsap.utils.toArray('.gs-reveal').forEach(el => {
+            gsap.from(el, {
+                y: 50, opacity: 0, duration: 1.5, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        // 6. Interactive Room Hotspots
+        const productItems = document.querySelectorAll('.product-item');
+        productItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const targetEffectId = item.getAttribute('data-effect');
+                if(targetEffectId) {
+                    const effectLayer = document.getElementById(targetEffectId);
+                    if(effectLayer) effectLayer.classList.add('active');
+                }
+            });
+            item.addEventListener('mouseleave', () => {
+                const targetEffectId = item.getAttribute('data-effect');
+                if(targetEffectId) {
+                    const effectLayer = document.getElementById(targetEffectId);
+                    if(effectLayer) effectLayer.classList.remove('active');
+                }
+            });
+        });
+
+        // 7. Interactive Brand Ecosystem
+        const brandLogos = document.querySelectorAll('[data-brand]');
+        const brandBgs = document.querySelectorAll('.brand-bg');
+        const brandOverlay = document.getElementById('brand-overlay');
+        const brandTagline = document.getElementById('brand-tagline');
+        const originalTagline = brandTagline.innerText;
+
+        brandLogos.forEach(logo => {
+            logo.addEventListener('mouseenter', () => {
+                const targetBrand = logo.getAttribute('data-brand');
+                const targetDesc = logo.getAttribute('data-desc');
+                
+                // Fade out others, fade in target background
+                brandBgs.forEach(bg => bg.classList.remove('active'));
+                const targetBg = document.getElementById(`bg-${targetBrand}`);
+                if(targetBg) targetBg.classList.add('active');
+
+                // Darken overlay slightly
+                brandOverlay.style.backgroundColor = 'rgba(22, 22, 22, 0.6)';
+
+                // Animate Text change
+                gsap.to(brandTagline, { opacity: 0, duration: 0.3, onComplete: () => {
+                    brandTagline.innerText = targetDesc;
+                    gsap.to(brandTagline, { opacity: 1, duration: 0.3 });
+                }});
+
+                // Dim other logos
+                brandLogos.forEach(otherLogo => {
+                    if(otherLogo !== logo) otherLogo.querySelector('img').style.opacity = '0.2';
+                });
+                logo.querySelector('img').classList.add('active');
+            });
+
+            logo.addEventListener('mouseleave', () => {
+                // Reset backgrounds
+                brandBgs.forEach(bg => bg.classList.remove('active'));
+                document.getElementById('bg-default').classList.add('active');
+                brandOverlay.style.backgroundColor = 'rgba(22, 22, 22, 0.8)';
+
+                // Reset Text
+                gsap.to(brandTagline, { opacity: 0, duration: 0.3, onComplete: () => {
+                    brandTagline.innerText = originalTagline;
+                    gsap.to(brandTagline, { opacity: 1, duration: 0.3 });
+                }});
+
+                // Reset logos
+                brandLogos.forEach(otherLogo => {
+                    otherLogo.querySelector('img').style.opacity = '0.5';
+                    otherLogo.querySelector('img').classList.remove('active');
+                });
+            });
+        });
+
+        // CSS Animation Keyframes injection for SVG dash
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes scroll { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+            @keyframes slowZoom { 0% { transform: scale(1.1); } 100% { transform: scale(1); } }
+            @keyframes dash { to { stroke-dashoffset: -20; } }
+            .reverse { animation-direction: reverse; }
+        `;
+        document.head.appendChild(style);
+
+    </script>
+</body>
+</html>

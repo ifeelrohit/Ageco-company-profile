@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGECO India | Premium Solutions Partner</title>
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1A1A1A',     /* Charcoal */
+                        accent: '#B8905B',      /* Muted Gold */
+                        light: '#FDFCFB',       /* Warm White */
+                        beige: '#F5F2EB',       /* Soft Beige */
+                        muted: '#777777',
+                        border: 'rgba(26, 26, 26, 0.1)'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Base & Smooth Scroll Reset */
+        body { background-color: var(--light); color: var(--primary); overflow-x: hidden; cursor: none; }
+        
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+        }
+        .cursor-dot { width: 6px; height: 6px; background-color: #B8905B; transition: width 0.2s, height 0.2s; }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(184, 144, 91, 0.5); transition: width 0.3s, height 0.3s, background-color 0.3s; }
+        .hover-active .cursor-dot { width: 0; height: 0; }
+        .hover-active .cursor-outline { width: 80px; height: 80px; background-color: rgba(184, 144, 91, 0.1); backdrop-filter: blur(2px); border-color: transparent; }
+
+        /* Typography Utilities */
+        .split-line { overflow: hidden; padding-bottom: 0.1em; }
+        .clip-text { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+
+        /* Glassmorphism */
+        .glass-nav { background: rgba(253, 252, 251, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.4); }
+
+        /* Image Hover Zoom */
+        .img-wrap { overflow: hidden; position: relative; }
+        .img-wrap img { transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+        .group:hover .img-wrap img { transform: scale(1.05); }
+
+        /* Horizontal Scroll Section */
+        .horizontal-scroll-wrapper { width: 400vw; display: flex; flex-wrap: nowrap; }
+        .horizontal-panel { width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+        /* Swiper Customize */
+        .swiper-slide { height: auto; }
+
+        /* Ecosystem Hover Changes */
+        .eco-bg-layer { transition: opacity 0.8s ease, transform 1.2s ease; opacity: 0; transform: scale(1.05); }
+        .eco-bg-layer.active { opacity: 0.3; transform: scale(1); }
+    </style>
+</head>
+<body class="font-sans selection:bg-accent selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 py-4 px-6 md:px-12 flex justify-between items-center">
+        <a href="#" class="hover-trigger">
+            <img src="ageco-india-logo.png" alt="AGECO India" class="h-8 object-contain filter drop-shadow-sm">
+        </a>
+        <div class="hidden md:flex gap-8 font-sans text-xs tracking-[0.2em] font-medium uppercase text-primary">
+            <a href="#profile" class="hover-trigger hover:text-accent transition-colors">Profile</a>
+            <a href="#solutions" class="hover-trigger hover:text-accent transition-colors">Solutions</a>
+            <a href="#ecosystem" class="hover-trigger hover:text-accent transition-colors">Ecosystem</a>
+            <a href="#industries" class="hover-trigger hover:text-accent transition-colors">Industries</a>
+        </div>
+        <a href="#contact" class="hover-trigger px-6 py-3 border border-primary text-primary font-sans font-medium text-xs uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all">
+            Consultation
+        </a>
+    </nav>
+
+    <!-- ================= SECTION 1: HERO ================= -->
+    <section class="relative w-full h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden bg-primary">
+        <div class="absolute inset-0 z-0">
+            <img src="cover-bg.jpg" alt="Luxury Architectural Interior" class="w-full h-full object-cover opacity-60" data-speed="0.7">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto w-full text-white pt-20">
+            <span class="block text-accent font-sans font-medium tracking-[0.3em] uppercase text-xs mb-6 reveal-fade">Architectural Partnerships</span>
+            
+            <h1 class="font-serif font-medium text-5xl md:text-7xl lg:text-8xl leading-tight mb-8">
+                <div class="split-line"><span class="reveal-heading inline-block">Premium Building</span></div>
+                <div class="split-line"><span class="reveal-heading inline-block">& Lifestyle <i class="text-accent">Solutions</i></span></div>
+            </h1>
+            
+            <div class="mt-12 reveal-fade">
+                <a href="#profile" class="hover-trigger group inline-flex items-center gap-4 text-xs font-sans tracking-[0.2em] uppercase text-white hover:text-accent transition-colors">
+                    <span class="w-12 h-[1px] bg-white group-hover:bg-accent transition-colors"></span>
+                    Discover AGECO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 2: COMPANY PROFILE ================= -->
+    <section id="profile" class="py-32 px-6 md:px-12 bg-light relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="relative img-wrap h-[80vh] w-full gs-reveal">
+                    <img src="profile-img.jpg" alt="Luxury Interior Profile" class="w-full h-full object-cover">
+                    <!-- Stat Floating Card -->
+                    <div class="absolute -bottom-10 -right-10 md:bottom-10 md:-right-10 glass-card p-8 shadow-2xl max-w-xs hover-trigger">
+                        <h4 class="font-sans text-xs tracking-[0.2em] text-accent uppercase mb-2">Established</h4>
+                        <div class="font-serif text-6xl text-primary"><span class="counter" data-target="1993">1993</span></div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-12">
+                    <div class="gs-reveal">
+                        <h2 class="font-serif text-4xl md:text-5xl text-primary mb-6">The AGECO Standard</h2>
+                        <p class="text-lg text-muted font-light leading-relaxed mb-6">
+                            AGECO India Pvt Ltd is a premium building and lifestyle solutions partner, curating the world’s finest electrical, lighting, kitchen, and bathware brands for India’s most prestigious projects.
+                        </p>
+                        <p class="text-lg text-muted font-light leading-relaxed">
+                            We speak the language of architects, builders, and interior designers, providing comprehensive end-to-end procurement solutions for luxury residential, hospitality, and commercial developments.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 gs-reveal">
+                        <div class="border-l border-accent pl-6">
+                            <h3 class="font-serif text-2xl text-primary mb-3">Vision & Mission</h3>
+                            <p class="text-sm text-muted font-light leading-relaxed">To supply everything required for a premium project through a streamlined, professional, and aesthetically driven procurement experience, ensuring authentic products and uncompromising service.</p>
+                        </div>
+                        <div class="border-l border-accent pl-6 flex flex-col justify-center">
+                            <h4 class="font-sans text-xs tracking-[0.2em] text-accent uppercase mb-2">Portfolio</h4>
+                            <p class="font-serif text-2xl text-primary mb-4">Premium Global Brands</p>
+                            <h4 class="font-sans text-xs tracking-[0.2em] text-accent uppercase mb-2">Presence</h4>
+                            <p class="font-serif text-2xl text-primary">Multi-City Network</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 3: LIVING & CLIMATE ================= -->
+    <section id="solutions" class="py-32 bg-beige overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 mb-16 gs-reveal">
+            <span class="text-accent font-sans text-xs tracking-[0.2em] uppercase block mb-4">Product Portfolio</span>
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                <h2 class="font-serif text-4xl md:text-5xl text-primary">Living & Climate Solutions</h2>
+                <div class="flex gap-4">
+                    <button class="swiper-living-prev w-12 h-12 rounded-full border border-primary flex items-center justify-center hover-trigger hover:bg-primary hover:text-white transition-colors cursor-none"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                    <button class="swiper-living-next w-12 h-12 rounded-full border border-primary flex items-center justify-center hover-trigger hover:bg-primary hover:text-white transition-colors cursor-none"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="swiper living-swiper pl-6 md:pl-12 pb-12 gs-reveal">
+            <div class="swiper-wrapper">
+                <!-- Products Data Map -->
+                <div class="swiper-slide w-[80vw] md:w-[400px] group hover-trigger">
+                    <div class="img-wrap h-[500px] w-full relative">
+                        <img src="lighting.jpg" alt="Premium Lighting" class="w-full h-full object-cover filter brightness-90 group-hover:brightness-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-serif text-2xl text-white mb-2">Premium Lighting</h3>
+                            <p class="font-sans text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Architectural and decorative illumination.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide w-[80vw] md:w-[400px] group hover-trigger">
+                    <div class="img-wrap h-[500px] w-full relative">
+                        <img src="fans.jpg" alt="Designer Fans" class="w-full h-full object-cover filter brightness-90 group-hover:brightness-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-serif text-2xl text-white mb-2">Designer Fans</h3>
+                            <p class="font-sans text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Aero-dynamic styling and smart cooling.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide w-[80vw] md:w-[400px] group hover-trigger">
+                    <div class="img-wrap h-[500px] w-full relative">
+                        <img src="television.jpg" alt="Smart Televisions" class="w-full h-full object-cover filter brightness-90 group-hover:brightness-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-serif text-2xl text-white mb-2">Smart Televisions</h3>
+                            <p class="font-sans text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Next-generation home entertainment systems.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide w-[80vw] md:w-[400px] group hover-trigger">
+                    <div class="img-wrap h-[500px] w-full relative">
+                        <img src="air-conditioner.jpg" alt="Air Conditioners" class="w-full h-full object-cover filter brightness-90 group-hover:brightness-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-serif text-2xl text-white mb-2">Air Conditioners</h3>
+                            <p class="font-sans text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Energy-efficient climate control technology.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide w-[80vw] md:w-[400px] group hover-trigger">
+                    <div class="img-wrap h-[500px] w-full relative">
+                        <img src="washing-machine.jpg" alt="Washing Machines" class="w-full h-full object-cover filter brightness-90 group-hover:brightness-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-serif text-2xl text-white mb-2">Washing Machines</h3>
+                            <p class="font-sans text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Advanced laundry and fabric care.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide w-[80vw] md:w-[400px] group hover-trigger">
+                    <div class="img-wrap h-[500px] w-full relative">
+                        <img src="refrigerator.jpg" alt="Refrigerators" class="w-full h-full object-cover filter brightness-90 group-hover:brightness-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 class="font-serif text-2xl text-white mb-2">Refrigerators</h3>
+                            <p class="font-sans text-sm text-gray-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">High-capacity intelligent cooling solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 4: KITCHEN & UTILITY ================= -->
+    <section class="py-32 bg-light">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 mb-16 text-center gs-reveal">
+            <span class="text-accent font-sans text-xs tracking-[0.2em] uppercase block mb-4">Culinary Excellence</span>
+            <h2 class="font-serif text-4xl md:text-5xl text-primary">Kitchen & Utility Solutions</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 px-6 md:px-12 max-w-7xl mx-auto gs-reveal">
+            <!-- Items -->
+            <div class="relative h-[300px] group hover-trigger img-wrap bg-primary">
+                <img src="oven.jpg" alt="Ovens" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-xl text-white mb-1">Built-in Ovens</h3>
+                    <p class="font-sans text-xs text-gray-300">Precision baking technology.</p>
+                </div>
+            </div>
+            <div class="relative h-[300px] group hover-trigger img-wrap bg-primary">
+                <img src="microwave.jpg" alt="Microwaves" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-xl text-white mb-1">Microwaves</h3>
+                    <p class="font-sans text-xs text-gray-300">Smart convection systems.</p>
+                </div>
+            </div>
+            <div class="relative h-[300px] group hover-trigger img-wrap bg-primary">
+                <img src="hobs.jpg" alt="Hobs" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-xl text-white mb-1">Premium Hobs</h3>
+                    <p class="font-sans text-xs text-gray-300">High-efficiency glass burners.</p>
+                </div>
+            </div>
+            <div class="relative h-[300px] group hover-trigger img-wrap bg-primary">
+                <img src="dishwasher.jpg" alt="Dishwashers" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-xl text-white mb-1">Dishwashers</h3>
+                    <p class="font-sans text-xs text-gray-300">Automated hygiene care.</p>
+                </div>
+            </div>
+            <div class="relative h-[300px] group hover-trigger img-wrap bg-primary">
+                <img src="mixer-grinder.jpg" alt="Mixer Grinders" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-xl text-white mb-1">Mixer Grinders</h3>
+                    <p class="font-sans text-xs text-gray-300">Heavy-duty food prep.</p>
+                </div>
+            </div>
+            <div class="relative h-[300px] group hover-trigger img-wrap bg-primary">
+                <img src="water-purifier.jpg" alt="Water Purifiers" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-xl text-white mb-1">Water Purifiers</h3>
+                    <p class="font-sans text-xs text-gray-300">Advanced RO filtration.</p>
+                </div>
+            </div>
+            <div class="relative h-[400px] md:col-span-2 lg:col-span-3 group hover-trigger img-wrap bg-primary mt-1">
+                <img src="small-appliances.jpg" alt="Home Appliances" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-primary/90 to-transparent">
+                    <h3 class="font-serif text-3xl text-white mb-2">Small Home Appliances</h3>
+                    <p class="font-sans text-sm text-gray-300 max-w-xl">A complete ecosystem of modern domestic utilities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 5: INTERACTIVE ECOSYSTEM ================= -->
+    <section id="ecosystem" class="relative w-full h-screen bg-primary flex items-center justify-center overflow-hidden">
+        
+        <!-- Dynamic Backgrounds -->
+        <div class="absolute inset-0 z-0">
+            <img src="cover-bg.jpg" id="eco-bg-default" class="absolute inset-0 w-full h-full object-cover eco-bg-layer active" alt="AGECO">
+            <img src="lighting.jpg" id="eco-bg-havells" class="absolute inset-0 w-full h-full object-cover eco-bg-layer" alt="Havells">
+            <img src="profile-img.jpg" id="eco-bg-fima" class="absolute inset-0 w-full h-full object-cover eco-bg-layer" alt="FIMA">
+            <img src="water-purifier.jpg" id="eco-bg-aosmith" class="absolute inset-0 w-full h-full object-cover eco-bg-layer" alt="AO Smith">
+            <img src="fans.jpg" id="eco-bg-orient" class="absolute inset-0 w-full h-full object-cover eco-bg-layer" alt="Orient">
+            <img src="oven.jpg" id="eco-bg-siemens" class="absolute inset-0 w-full h-full object-cover eco-bg-layer" alt="Siemens">
+            <div class="absolute inset-0 bg-primary/80 z-10 backdrop-blur-sm transition-all duration-700" id="eco-overlay"></div>
+        </div>
+
+        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-12">
+            
+            <!-- Center Concept & Info Display -->
+            <div class="md:w-1/2 gs-reveal">
+                <span class="text-accent font-sans text-xs tracking-[0.2em] uppercase block mb-4">Our Brand Ecosystem</span>
+                <div id="eco-content" class="min-h-[200px]">
+                    <h2 class="font-serif text-5xl md:text-6xl text-white mb-6 transition-all duration-500" id="eco-title">AGECO INDIA</h2>
+                    <p class="text-xl text-gray-300 font-light italic font-serif mb-8 transition-all duration-500" id="eco-desc">Premium Solutions Partner</p>
+                    <a href="#contact" id="eco-btn" class="inline-flex items-center gap-4 text-xs font-sans tracking-[0.2em] uppercase text-white opacity-0 transition-opacity duration-500 hover-trigger">
+                        <span class="w-8 h-[1px] bg-accent"></span> Explore Products
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interactive Brand List -->
+            <div class="md:w-1/2 flex flex-col gap-2 w-full max-w-md gs-reveal">
+                
+                <div class="eco-brand-item group glass-card p-6 flex items-center justify-between cursor-none hover-trigger hover:bg-white/10 transition-all" data-bg="havells" data-title="Consumer Electrical Solutions" data-logo="Havells">
+                    <img src="havells-logo.png" alt="Havells" class="h-8 object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all">
+                    <i data-lucide="arrow-up-right" class="text-white opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                </div>
+
+                <div class="eco-brand-item group glass-card p-6 flex items-center justify-between cursor-none hover-trigger hover:bg-white/10 transition-all" data-bg="fima" data-title="Luxury Bathroom Solutions" data-logo="FIMA">
+                    <img src="fima-logo.png" alt="FIMA" class="h-8 object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all">
+                    <i data-lucide="arrow-up-right" class="text-white opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                </div>
+
+                <div class="eco-brand-item group glass-card p-6 flex items-center justify-between cursor-none hover-trigger hover:bg-white/10 transition-all" data-bg="aosmith" data-title="Water Heating & Purification" data-logo="AO Smith">
+                    <img src="aosmith-logo.png" alt="AO Smith" class="h-8 object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all">
+                    <i data-lucide="arrow-up-right" class="text-white opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                </div>
+
+                <div class="eco-brand-item group glass-card p-6 flex items-center justify-between cursor-none hover-trigger hover:bg-white/10 transition-all" data-bg="orient" data-title="Fans & Lifestyle Lighting" data-logo="Orient">
+                    <img src="orient-logo.png" alt="Orient" class="h-8 object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all">
+                    <i data-lucide="arrow-up-right" class="text-white opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                </div>
+
+                <div class="eco-brand-item group glass-card p-6 flex items-center justify-between cursor-none hover-trigger hover:bg-white/10 transition-all" data-bg="siemens" data-title="Built-in Kitchen Appliances" data-logo="Siemens">
+                    <img src="logo-siemens.png" alt="Siemens" class="h-8 object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all">
+                    <i data-lucide="arrow-up-right" class="text-white opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 6: INDUSTRIES (HORIZONTAL) ================= -->
+    <section id="industries" class="relative overflow-hidden bg-light h-screen">
+        <div class="absolute top-20 left-6 md:left-12 z-20 gs-reveal">
+            <span class="text-accent font-sans text-xs tracking-[0.2em] uppercase block mb-4">Industries We Serve</span>
+        </div>
+        
+        <div class="horizontal-scroll-wrapper h-full">
+            
+            <!-- Panel 1 -->
+            <div class="horizontal-panel relative px-6 md:px-24">
+                <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 flex flex-col items-start z-10">
+                        <h2 class="font-serif text-5xl md:text-7xl text-primary mb-4">Luxury<br>Residential</h2>
+                        <p class="font-sans text-sm tracking-[0.2em] uppercase text-accent mb-8">Villas & Premium Apartments</p>
+                    </div>
+                    <div class="md:w-1/2 w-full h-[50vh] img-wrap shadow-2xl">
+                        <img src="industry-residential.jpg" alt="Residential" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2 -->
+            <div class="horizontal-panel relative px-6 md:px-24">
+                <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 flex flex-col items-start z-10">
+                        <h2 class="font-serif text-5xl md:text-7xl text-primary mb-4">Hospitality</h2>
+                        <p class="font-sans text-sm tracking-[0.2em] uppercase text-accent mb-8">Hotels & Resorts</p>
+                    </div>
+                    <div class="md:w-1/2 w-full h-[50vh] img-wrap shadow-2xl">
+                        <img src="why-gallery.jpg" alt="Hospitality" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3 -->
+            <div class="horizontal-panel relative px-6 md:px-24">
+                <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 flex flex-col items-start z-10">
+                        <h2 class="font-serif text-5xl md:text-7xl text-primary mb-4">Commercial</h2>
+                        <p class="font-sans text-sm tracking-[0.2em] uppercase text-accent mb-8">Corporate Offices</p>
+                    </div>
+                    <div class="md:w-1/2 w-full h-[50vh] img-wrap shadow-2xl">
+                        <img src="industry-commercial.jpg" alt="Commercial" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 4 -->
+            <div class="horizontal-panel relative px-6 md:px-24">
+                <div class="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 flex flex-col items-start z-10">
+                        <h2 class="font-serif text-5xl md:text-7xl text-primary mb-4">Interior Design</h2>
+                        <p class="font-sans text-sm tracking-[0.2em] uppercase text-accent mb-8">Architectural Partnerships</p>
+                    </div>
+                    <div class="md:w-1/2 w-full h-[50vh] img-wrap shadow-2xl">
+                        <img src="profile-img.jpg" alt="Interior Design" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= SECTION 7: WHY AGECO (STACKED CARDS) ================= -->
+    <section class="py-32 bg-beige relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-16">
+            
+            <div class="lg:w-1/3 lg:sticky lg:top-32 h-fit gs-reveal">
+                <h2 class="font-serif text-4xl md:text-6xl text-primary mb-6">Why Choose AGECO</h2>
+                <p class="font-sans text-lg font-light text-muted">Direct manufacturer sourcing guarantees absolute authenticity and premium quality.</p>
+            </div>
+
+            <div class="lg:w-2/3 flex flex-col gap-6">
+                <!-- Stack Cards -->
+                <div class="bg-white p-10 md:p-14 border border-border shadow-sm flex flex-col md:flex-row gap-8 items-center gs-reveal hover-trigger">
+                    <div class="w-16 h-16 rounded-full bg-beige flex items-center justify-center text-accent shrink-0"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-primary mb-2">100% Genuine Brands</h3>
+                        <p class="font-sans text-sm text-muted uppercase tracking-widest">Authorized Distributor</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 md:p-14 border border-border shadow-sm flex flex-col md:flex-row gap-8 items-center gs-reveal hover-trigger">
+                    <div class="w-16 h-16 rounded-full bg-beige flex items-center justify-center text-accent shrink-0"><i data-lucide="award" class="w-8 h-8"></i></div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-primary mb-2">30+ Years of Trust</h3>
+                        <p class="font-sans text-sm text-muted uppercase tracking-widest">Industry Legacy</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 md:p-14 border border-border shadow-sm flex flex-col md:flex-row gap-8 items-center gs-reveal hover-trigger">
+                    <div class="w-16 h-16 rounded-full bg-beige flex items-center justify-center text-accent shrink-0"><i data-lucide="map" class="w-8 h-8"></i></div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-primary mb-2">Pan-India Network</h3>
+                        <p class="font-sans text-sm text-muted uppercase tracking-widest">Delivery & Operations</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 md:p-14 border border-border shadow-sm flex flex-col md:flex-row gap-8 items-center gs-reveal hover-trigger">
+                    <div class="w-16 h-16 rounded-full bg-beige flex items-center justify-center text-accent shrink-0"><i data-lucide="briefcase" class="w-8 h-8"></i></div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-primary mb-2">End-to-End Solutions</h3>
+                        <p class="font-sans text-sm text-muted uppercase tracking-widest">Consultation to Installation</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= SECTION 8: GALLERY (MAGAZINE STYLE) ================= -->
+    <section class="py-32 bg-light overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative h-[80vh] flex items-center justify-center">
+            
+            <div class="absolute z-10 text-center w-full gs-reveal mix-blend-difference">
+                <h2 class="font-serif text-6xl md:text-8xl text-white">Editorial Spaces</h2>
+            </div>
+
+            <!-- Overlapping Images -->
+            <div class="absolute top-10 left-10 w-1/3 h-[50vh] img-wrap shadow-2xl gs-parallax" data-speed="0.8">
+                <img src="why-mosaic-1.jpg" alt="Design" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="absolute bottom-10 right-10 w-2/5 h-[60vh] img-wrap shadow-2xl gs-parallax z-20" data-speed="1.2">
+                <img src="why-mosaic-2.jpg" alt="Architecture" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/4 h-[40vh] img-wrap shadow-xl gs-parallax z-0 opacity-80" data-speed="0.5">
+                <img src="why-gallery.jpg" alt="Lifestyle" class="w-full h-full object-cover">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= SECTION 9: CONTACT ================= -->
+    <section id="contact" class="bg-primary text-white pt-32 pb-16 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="text-center mb-24 gs-reveal">
+                <span class="text-accent font-sans text-xs tracking-[0.2em] uppercase block mb-4">Connect With Us</span>
+                <h2 class="font-serif text-5xl md:text-7xl">Premium Consultation</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 border-t border-borderLight pt-16">
+                
+                <!-- Office Locations -->
+                <div class="lg:col-span-5 flex flex-col gap-12 gs-reveal">
+                    <div>
+                        <h4 class="font-sans text-xs tracking-[0.2em] text-accent uppercase mb-4 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Head Office / Corporate Showroom</h4>
+                        <p class="font-serif text-xl leading-relaxed text-gray-300">AGECO HOUSE, Plot No. 151/A/B,<br>Scheme No. 94, Pipliyahana Square,<br>Indore – 452001, Madhya Pradesh</p>
+                    </div>
+                    <div>
+                        <h4 class="font-sans text-xs tracking-[0.2em] text-accent uppercase mb-4 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Bhopal Branch</h4>
+                        <p class="font-serif text-xl leading-relaxed text-gray-300">AGECO HOUSE, E2/147,<br>Arera Colony,<br>Bhopal – 462016, Madhya Pradesh</p>
+                    </div>
+                    <div>
+                        <h4 class="font-sans text-xs tracking-[0.2em] text-accent uppercase mb-4 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Mumbai Branch</h4>
+                        <p class="font-serif text-xl leading-relaxed text-gray-300">Jai Mangal Oil Complex, Plot No. 48/49,<br>Sec 19A, Vashi,<br>Navi Mumbai – 400705, Maharashtra</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form / Links -->
+                <div class="lg:col-span-7 flex flex-col gap-8 gs-reveal">
+                    <div class="glass-card p-10 flex flex-col gap-8 border border-white/10">
+                        <a href="https://www.ageco.in" class="flex items-center gap-6 group hover-trigger">
+                            <span class="font-serif text-2xl text-white group-hover:text-accent transition-colors">www.ageco.in</span>
+                            <i data-lucide="arrow-up-right" class="w-6 h-6 text-accent opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                        </a>
+                        <div class="w-full h-px bg-white/10"></div>
+                        <a href="mailto:akshat@ageco.in" class="flex items-center gap-6 group hover-trigger">
+                            <span class="font-serif text-2xl text-white group-hover:text-accent transition-colors">akshat@ageco.in</span>
+                            <i data-lucide="arrow-up-right" class="w-6 h-6 text-accent opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                        </a>
+                        <div class="w-full h-px bg-white/10"></div>
+                        <a href="tel:+919111676699" class="flex items-center gap-6 group hover-trigger">
+                            <span class="font-serif text-2xl text-white group-hover:text-accent transition-colors">+91 91116 76699</span>
+                            <i data-lucide="arrow-up-right" class="w-6 h-6 text-accent opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 mt-20 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 tracking-widest uppercase font-sans">
+            <span>© 2026 AGECO India Pvt. Ltd.</span>
+            <span class="mt-4 md:mt-0">Premium Solutions Partner</span>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // 1. Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+        });
+        document.querySelectorAll('.hover-trigger, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+        });
+
+        // 3. Hero Text Reveal
+        const splitTitles = new SplitType('.reveal-heading', { types: 'chars' });
+        gsap.from(splitTitles.chars, {
+            y: 100, opacity: 0, duration: 1.2, stagger: 0.03, ease: "power4.out", delay: 0.2
+        });
+        gsap.from('.reveal-fade', { opacity: 0, y: 20, duration: 1.5, delay: 0.8, stagger: 0.2 });
+
+        // 4. Parallax Backgrounds
+        gsap.utils.toArray('[data-speed]').forEach(layer => {
+            gsap.to(layer, {
+                y: () => (ScrollTrigger.maxScroll(window) * layer.getAttribute('data-speed')),
+                ease: "none",
+                scrollTrigger: { trigger: layer, start: "top top", end: "max", scrub: 0 }
+            });
+        });
+
+        // 5. Scroll Reveals
+        gsap.utils.toArray('.gs-reveal').forEach(el => {
+            gsap.from(el, {
+                y: 40, opacity: 0, duration: 1.2, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        // 6. Number Counter
+        gsap.utils.toArray('.counter').forEach(el => {
+            let target = { val: 1900 };
+            let endVal = parseInt(el.getAttribute('data-target'));
+            gsap.to(target, {
+                val: endVal, duration: 2, ease: "power2.out",
+                onUpdate: () => el.innerText = Math.floor(target.val),
+                scrollTrigger: { trigger: el, start: "top 90%" }
+            });
+        });
+
+        // 7. Swiper Carousel
+        new Swiper('.living-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            navigation: { nextEl: '.swiper-living-next', prevEl: '.swiper-living-prev' }
+        });
+
+        // 8. Horizontal Scroll Sections
+        const horizWrapper = document.querySelector('.horizontal-scroll-wrapper');
+        if(horizWrapper) {
+            gsap.to(horizWrapper, {
+                xPercent: -75, // 4 sections = scroll 3 of them
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#industries",
+                    pin: true,
+                    scrub: 1,
+                    end: () => "+=" + horizWrapper.offsetWidth
+                }
+            });
+        }
+
+        // 9. Ecosystem Interactions
+        const ecoItems = document.querySelectorAll('.eco-brand-item');
+        const ecoBgs = document.querySelectorAll('.eco-bg-layer');
+        const overlay = document.getElementById('eco-overlay');
+        const ecoTitle = document.getElementById('eco-title');
+        const ecoDesc = document.getElementById('eco-desc');
+        const ecoBtn = document.getElementById('eco-btn');
+
+        ecoItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const targetBg = item.getAttribute('data-bg');
+                
+                // Switch Backgrounds
+                ecoBgs.forEach(bg => bg.classList.remove('active'));
+                document.getElementById(`eco-bg-${targetBg}`).classList.add('active');
+                
+                // Darken Overlay
+                overlay.style.backgroundColor = 'rgba(26, 26, 26, 0.6)';
+
+                // Update Text
+                ecoTitle.style.opacity = 0; ecoDesc.style.opacity = 0;
+                setTimeout(() => {
+                    ecoTitle.innerText = item.getAttribute('data-logo');
+                    ecoDesc.innerText = item.getAttribute('data-title');
+                    ecoTitle.style.opacity = 1; ecoDesc.style.opacity = 1;
+                    ecoBtn.style.opacity = 1;
+                }, 300);
+            });
+
+            item.addEventListener('mouseleave', () => {
+                ecoBgs.forEach(bg => bg.classList.remove('active'));
+                document.getElementById('eco-bg-default').classList.add('active');
+                overlay.style.backgroundColor = 'rgba(26, 26, 26, 0.8)';
+                
+                ecoTitle.style.opacity = 0; ecoDesc.style.opacity = 0;
+                setTimeout(() => {
+                    ecoTitle.innerText = 'AGECO INDIA';
+                    ecoDesc.innerText = 'Premium Solutions Partner';
+                    ecoTitle.style.opacity = 1; ecoDesc.style.opacity = 1;
+                    ecoBtn.style.opacity = 0;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
